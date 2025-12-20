@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Nota: Un backend es un API pero un API no siempre es un backend.
+ * 
+ * API: Application Programming Interface
+ * En un software que permite conectar otro software
+ * 
+ * SDK: Software Development Kit
+ * Un conjunto de herramientas 
+ * 
  * Idea:
  * 
  * Administrar información de videojuegos.
@@ -93,6 +101,27 @@ public class GameController {
         return newGame.getId();
     }
 
+    @RequestMapping("updateGame/{id}")
+    public void update(@RequestBody Game updatedGame, @PathVariable("id") int id) {
+        for (Game game : db) {
+            if (game.getId() == id) {
+
+                if (updatedGame.getTitle() != null) {
+                    game.setTitle(updatedGame.getTitle());
+                }
+
+                if (updatedGame.getYear() != null) {
+                    game.setYear(updatedGame.getYear());
+                }
+
+                if (updatedGame.getGenre() != null) {
+                    game.setGenre(updatedGame.getGenre());
+                }
+
+                break;
+            }
+        }
+    }
 }
 
 /**
