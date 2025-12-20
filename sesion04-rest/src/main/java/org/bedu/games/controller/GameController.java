@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.bedu.games.model.Game;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
  * Idea:
  * 
  * Administrar información de videojuegos.
- *  - Obtener información de un videojuego en específico
+ *  - Obtener información de un videojuego en específico (Path Variable)
  *  - Obtener información de todos los videojuegos
- *  - Dar de alta nuevos videojuegos
- *  - Editar videojuegos
- *  - Dar de baja videojuegos
+ *  - Dar de alta nuevos videojuegos (Body)
+ *  - Editar videojuegos (Body)
+ *  - Dar de baja videojuegos (Path Variable)
  * 
  * CRUD (Create, Read, Update, Delete)
  * 
@@ -28,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GameController {
     
+    private int currentId = 3;
     private List<Game> db = new LinkedList<>();
 
     public GameController() {
+        // En memoria
         db.add(new Game(1, "Super Mario 64", 1996, "Platform"));
         db.add(new Game(2, "The King of Fighters 95", 1995, "Fightning"));
         db.add(new Game(3, "The Legend of Zelda: A Link to the Past", 1992, "Adventure"));
@@ -39,13 +42,15 @@ public class GameController {
     /**
      * Formas de pasar parámetros a un API (4)
      * 
-     * 1. Querystring
+     * 1. Querystring (@RequestParam)
      * 
      *  http://localhost:8080/endpoint ? param1 = valor1 & param2 = valor2 & ...
      * 
-     * 2. Path Variable
+     * 2. Path Variable (@PathVariable)
      * 
      *  http://loalhost:8080/endpoint/{variable}
+     * 
+     * 3. Request Body (@RequestBody)
      */
 
     // Obtener la información de todos los videojuegos
@@ -64,6 +69,28 @@ public class GameController {
         }
 
         return null;
+    }
+
+    @RequestMapping("deleteGame/{id}")
+    public void deleteOne(@PathVariable("id") int id) {
+        for (int i = 0; i < db.size(); i++) {
+            Game game = db.get(i);
+
+            if (game.getId() == id) {
+                db.remove(i);
+                break;
+            }
+        }
+    }
+
+    // ++currentId: Incrementa en uno y luego asigna el valor
+    // currentId++: Asigna el valor y luego incrementa en uno
+    @RequestMapping("createGame")
+    public int create(@RequestBody Game newGame) {
+        System.out.println(newGame);
+        newGame.setId(++currentId);
+        db.add(newGame);
+        return newGame.getId();
     }
 
 }

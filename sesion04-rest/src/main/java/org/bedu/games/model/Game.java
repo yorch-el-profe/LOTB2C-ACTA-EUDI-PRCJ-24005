@@ -8,23 +8,23 @@ package org.bedu.games.model;
  */
 public class Game {
    
-    private int id;
+    private Integer id;
     private String title;
-    private int year;
+    private Integer year;
     private String genre;
 
-    public Game(int id, String title, int year, String genre) {
+    public Game(Integer id, String title, Integer year, String genre) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.genre = genre;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class Game {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -50,5 +50,10 @@ public class Game {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return "[Titulo: " + title + ", Año: " + year + ", Genero: " + genre + "]";
     }
 }
