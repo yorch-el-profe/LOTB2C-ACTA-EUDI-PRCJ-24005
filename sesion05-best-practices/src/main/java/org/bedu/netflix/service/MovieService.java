@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bedu.netflix.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,6 +39,15 @@ public class MovieService {
 
     public List<Movie> getMovies() {
         return movies;
+    }
+
+    public Movie getMovieById(int id) {
+        for (Movie movie : movies) {
+            if (movie.getId() == id) {
+                return movie;
+            }
+        }
+        return null;
     }
 
     public Movie createMovie(Movie movie) {
