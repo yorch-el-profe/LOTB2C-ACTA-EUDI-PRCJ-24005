@@ -3,6 +3,8 @@ package org.bedu.netflix.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.bedu.netflix.dto.CreateMovieDTO;
+import org.bedu.netflix.dto.MovieDTO;
 import org.bedu.netflix.entity.Movie;
 import org.bedu.netflix.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("movies") // Le agrega el prefijo /movies a todos los endpoints
+@RequestMapping("movies")
 public class MovieController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie) {
+    public MovieDTO createMovie(@RequestBody CreateMovieDTO movie) {
         return service.createMovie(movie);
     }
 

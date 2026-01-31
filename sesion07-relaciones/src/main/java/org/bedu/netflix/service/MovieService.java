@@ -3,7 +3,10 @@ package org.bedu.netflix.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.bedu.netflix.dto.CreateMovieDTO;
+import org.bedu.netflix.dto.MovieDTO;
 import org.bedu.netflix.entity.Movie;
+import org.bedu.netflix.mapper.MovieMapper;
 import org.bedu.netflix.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ public class MovieService {
     @Autowired
     private MovieRepository repository;
 
+    @Autowired
+    private MovieMapper mapper;
+
     public List<Movie> getMovies() {
         return repository.findAll();
     }
@@ -22,8 +28,9 @@ public class MovieService {
         return repository.findById(id);
     }
 
-    public Movie createMovie(Movie movie) {
-        return repository.save(movie);
+    public MovieDTO createMovie(CreateMovieDTO movie) {
+        Movie entity = mapper.toModel(movie);
+        return mapper.toDTO(repository.save(entity));
     }
 
     public void deleteMovie(long id) {
