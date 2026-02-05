@@ -1,10 +1,14 @@
 package org.bedu.netflix.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -21,6 +25,11 @@ public class Director {
 
     @Column(nullable = false)
     private String name;
+
+    // Relación inversa (OPCIONAL)
+    @OneToMany
+    @JoinColumn(name = "id_director")
+    private List<Movie> movies;
 
     public Long getId() {
         return id;

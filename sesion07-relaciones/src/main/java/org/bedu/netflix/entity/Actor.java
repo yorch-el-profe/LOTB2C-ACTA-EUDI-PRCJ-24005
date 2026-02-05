@@ -1,10 +1,13 @@
 package org.bedu.netflix.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -40,6 +43,16 @@ import jakarta.persistence.Table;
  * 
  *          1. Un cliente puede comprar varios productos
  *          2. Un producto puede ser comprado por varios clientes
+ * 
+ * 
+ *  ---------------------------------------------------------------------
+ * 
+ *      Movie - Actor 
+ * 
+ *      La relación es "muchos a muchos" porque:
+ * 
+ *          1. En una pelicula actuan varios actores
+ *          2. Un actor puede participar en varias peliculas
  */
 
 @Entity
@@ -52,6 +65,10 @@ public class Actor {
 
     @Column(nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "actors") // La relación principal esta definida en "Movie" (OPCIONAL)
+    private List<Movie> movies;
+
 
     public Long getId() {
         return id;
