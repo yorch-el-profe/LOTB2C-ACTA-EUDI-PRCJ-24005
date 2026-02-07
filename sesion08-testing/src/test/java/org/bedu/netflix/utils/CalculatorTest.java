@@ -3,12 +3,14 @@ package org.bedu.netflix.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
+ * Las pruebas ayudan a demostrar que el código funciona.
+ * 
+ * NOTA: Por más pruebas que tenga el código siempre es propenso a errores.
+ * 
  * Reglas del testing:
  * 
  * 1. Copiar la estructura de paquetes/carpetas/archivos original.
@@ -29,6 +31,20 @@ import org.junit.jupiter.api.Test;
  * 5. Un error en producción (o de código) es una prueba NO ejecutada
  */
 
+/**
+ * Este tipo de prueba se le llamada Unit Testing.
+ * 
+ * 1. Smoke Testing: Verifica que un sistema o código "arranque".
+ * 
+ * 2. Unit Testing: Probar piezas aisladas de código. No se realizan
+ * conexiones, ni consultas reales, todo se "falsifica" (mockea).
+ * 
+ * 3. Integration Testing: Probar piezas juntas (2 o más) y se realizan
+ * conexiones o consultas sobre ambientes de prueba.
+ * 
+ * 4. E2E (End-to-end) Testing: Probar flujos completos en un ambiente
+ * lo más real posible. Se deben de considerar los flujos más importantes del proyecto.
+ */
 public class CalculatorTest {
     
     @Test
