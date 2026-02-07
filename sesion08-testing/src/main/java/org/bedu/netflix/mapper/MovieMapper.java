@@ -10,6 +10,10 @@ public class MovieMapper {
     
     // Service -> Repository
     public Movie toModel(CreateMovieDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+        
         Movie entity = new Movie();
 
         entity.setTitle(dto.getTitle());
