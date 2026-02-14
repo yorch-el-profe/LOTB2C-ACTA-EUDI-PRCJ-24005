@@ -39,6 +39,20 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     
     Optional<Movie> findByTitle(String title);
 
+    // JPQL (Es como SQL pero usando objetos)
     @Query("SELECT m FROM Movie m LEFT JOIN FETCH m.director LEFT JOIN FETCH m.actors WHERE m.id = :id")
     Optional<Movie> findByIdWithDetails(@Param("id") Long id);
+
+    /**
+     * SELECT *
+     * FROM movie m
+     *  LEFT JOIN director d ON (m.fk_director = d.id)
+     *  LEFT JOIN movie_actor ma ON (ma.fk_movie = m.id)
+     *  LEFT JOIN actor a ON (ma.fk_actor = a.id)
+     * WHERE m.id = ?
+     * 
+     * Frozen   |   Chris Buck  | Actor A
+     * Frozen   |   Chris Buck  | Actor B
+     * ...
+     */
 }
