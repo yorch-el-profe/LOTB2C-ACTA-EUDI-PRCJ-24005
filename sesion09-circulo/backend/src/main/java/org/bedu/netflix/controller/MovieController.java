@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.bedu.netflix.dto.CreateMovieDTO;
 import org.bedu.netflix.dto.MovieDTO;
+import org.bedu.netflix.dto.MovieDetailsDTO;
 import org.bedu.netflix.dto.UpdateMovieDTO;
 import org.bedu.netflix.entity.Movie;
 import org.bedu.netflix.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// Permite que cualquier dominio pueda consultar el controller
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("movies")
 public class MovieController {
@@ -31,8 +35,8 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public Optional<MovieDTO> getMovieById(@PathVariable long id) {
-        return service.getMovieById(id);
+    public Optional<MovieDetailsDTO> getMovieById(@PathVariable long id) {
+        return service.getMovieDetailsById(id);
     }
 
     @PostMapping

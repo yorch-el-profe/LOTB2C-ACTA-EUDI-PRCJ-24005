@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.bedu.netflix.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /** 
@@ -36,4 +38,7 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     
     Optional<Movie> findByTitle(String title);
+
+    @Query("SELECT m FROM Movie m LEFT JOIN FETCH m.director LEFT JOIN FETCH m.actors WHERE m.id = :id")
+    Optional<Movie> findByIdWithDetails(@Param("id") Long id);
 }

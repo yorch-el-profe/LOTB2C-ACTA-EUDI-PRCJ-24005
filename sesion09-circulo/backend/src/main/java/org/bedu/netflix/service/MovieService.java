@@ -8,6 +8,7 @@ import org.bedu.netflix.dto.CreateActorDTO;
 import org.bedu.netflix.dto.CreateDirectorDTO;
 import org.bedu.netflix.dto.CreateMovieDTO;
 import org.bedu.netflix.dto.MovieDTO;
+import org.bedu.netflix.dto.MovieDetailsDTO;
 import org.bedu.netflix.dto.UpdateMovieDTO;
 import org.bedu.netflix.entity.Actor;
 import org.bedu.netflix.entity.Director;
@@ -54,6 +55,29 @@ public class MovieService {
     public Optional<MovieDTO> getMovieById(long id) {
         return repository.findById(id)
                 .map(mapper::toDTO);
+    }
+
+    public Optional<MovieDetailsDTO> getMovieDetailsById(long id) {
+        return repository.findByIdWithDetails(id)
+                .map(this::toDetailsDTO);
+    }
+
+    private MovieDetailsDTO toDetailsDTO(Movie movie) {
+        MovieDetailsDTO dto = new MovieDetailsDTO();
+        dto.setId(movie.getId());
+        dto.setTitle(movie.getTitle());
+        dto.setYear(movie.getYear());
+        dto.setGenre(movie.getGenre());
+        dto.setPoster(movie.getPoster());
+        if (movie.getDirector() != null) {
+            dto.setDirector(directorMapper.toDTO(movie.getDirector()));
+        }
+        if (movie.getActors() != null) {
+            dto.setActors(movie.getActors().stream()
+                    .map(actorMapper::toDTO)
+                    .toList());
+        }
+        return dto;
     }
 
     public MovieDTO createMovie(CreateMovieDTO movie) {
